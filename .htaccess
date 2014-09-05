@@ -1,0 +1,19 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php/$0 [PT,L] 
+
+<IfModule mod_headers.c>
+	<FilesMatch "\.(js|css|xml|gz|jpg|png)$">
+		Header append Vary: Accept-Encoding
+		Header unset Pragma
+		FileETag None
+		Header unset ETag
+		Header set Cache-Control "max-age=31536000, public, must-revalidate"
+		Header set Last-Modified "Tue, 25 Dec 2011 00:00:00 GMT"
+	</FilesMatch>
+</IfModule>
+<IfModule mod_filter.c>
+	AddOutputFilterByType DEFLATE text/css application/x-javascript text/x-component text/html text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon
+</IfModule>
+
